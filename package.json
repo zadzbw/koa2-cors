@@ -1,0 +1,24 @@
+{
+  "name": "koa2-cors",
+  "version": "2.0.0",
+  "description": "cors middleware for koa2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zadzbw/koa2-cors.git"
+  },
+  "keywords": [
+    "koa2",
+    "cors",
+    "middleware"
+  ],
+  "author": "zad",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zadzbw/koa2-cors/issues"
+  },
+  "homepage": "https://github.com/zadzbw/koa2-cors#readme"
+}
