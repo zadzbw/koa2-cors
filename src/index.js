@@ -1,5 +1,3 @@
-require('babel-register');
-
 /**
  * CORS middleware for koa2
  *
