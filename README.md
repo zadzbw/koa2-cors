@@ -37,7 +37,7 @@ Configures the **Access-Control-Allow-Credentials** CORS header. Expects a Boole
 
 ### allowMethods
 
-Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited array , If not specified, default allowMethods is `['GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'OPTIONS']`.
+Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-delimited array , If not specified, default allowMethods is `['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']`.
 
 ### allowHeaders
 Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited array . If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
