@@ -25,7 +25,7 @@ module.exports = function crossOrigin() {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   var defaultOptions = {
-    allowMethods: ['GET', 'PUT', 'POST', 'DELETE', 'HEAD', 'OPTIONS']
+    allowMethods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']
   };
 
   // set defaultOptions to options
