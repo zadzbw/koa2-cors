@@ -43,10 +43,10 @@ Configures the **Access-Control-Allow-Methods** CORS header. Expects a comma-del
 Configures the **Access-Control-Allow-Headers** CORS header. Expects a comma-delimited array . If not specified, defaults to reflecting the headers specified in the request's **Access-Control-Request-Headers** header.
 
 ```js
-var koa = require('koa');
+var Koa = require('koa');
 var cors = require('koa2-cors');
 
-var app = koa();
+var app = new Koa();
 app.use(cors({
   origin: function(ctx) {
     if (ctx.url === '/test') {
