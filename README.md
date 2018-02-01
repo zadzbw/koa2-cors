@@ -9,10 +9,10 @@ npm install --save koa2-cors
 ## Usage
 
 ```js
-var koa = require('koa');
+var Koa = require('koa');
 var cors = require('koa2-cors');
 
-var app = koa();
+var app = new Koa();
 app.use(cors());
 ```
 
