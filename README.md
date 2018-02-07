@@ -2,6 +2,8 @@
 
 ## install
 
+> it requires node v7.6.0 or higher now
+
 ```bash
 npm install --save koa2-cors
 ```
