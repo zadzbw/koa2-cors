@@ -1,0 +1,8 @@
+test/index.spec.js
+--reporter spec
+--check-leaks
+--colors
+--harmony
+--es_staging
+--timeout 5000
+--exit

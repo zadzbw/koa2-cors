@@ -8,7 +8,8 @@
     "dist/index.js"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "NODE_ENV=test mocha",
+    "test:cover": "NODE_ENV=test istanbul cover _mocha",
     "build": "NODE_ENV=production rm -rf dist & babel src -d dist",
     "lint": "eslint --ext .js src --format codeframe"
   },
@@ -29,9 +30,15 @@
   "homepage": "https://github.com/zadzbw/koa2-cors#readme",
   "devDependencies": {
     "babel-cli": "^6.18.0",
+    "chai": "^4.1.2",
     "eslint": "^5.1.0",
     "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0"
+    "eslint-plugin-import": "^2.13.0",
+    "istanbul": "^1.1.0-alpha.1",
+    "koa": "^2.5.2",
+    "koa-router": "^7.4.0",
+    "mocha": "^5.2.0",
+    "supertest": "^3.1.0"
   },
   "engines": {
     "node": ">= 7.6.0"
