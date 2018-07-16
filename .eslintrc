@@ -1,0 +1,40 @@
+{
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 6
+  },
+  "extends": [
+    "airbnb-base"
+  ],
+  "plugins": [
+  ],
+  "globals": {
+  },
+  "rules": {
+    "indent": 0,
+    "dot-notation": 0,
+    "arrow-body-style": 0,
+    "no-console": 0,
+    "no-debugger": 0,
+    "no-unused-vars": 0,
+    "object-curly-newline": 0,
+    "no-plusplus": 0,
+    "function-paren-newline": 0,
+    "class-methods-use-this": 1,
+    "eqeqeq": 2,
+    "quotes": [
+      2,
+      "single"
+    ],
+    "semi": [
+      2,
+      "always"
+    ],
+    "import/extensions": 0,
+    "import/no-unresolved": 0,
+    "import/no-absolute-path": 0
+  }
+}
