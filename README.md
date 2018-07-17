@@ -87,4 +87,4 @@ app.use(cors({
 [travis-url]: https://travis-ci.org/zadzbw/koa2-cors
 
 [codecov-image]: https://codecov.io/gh/zadzbw/koa2-cors/branch/master/graph/badge.svg
-[codedov-url]: https://codecov.io/gh/zadzbw/koa2-cors
+[codecov-url]: https://codecov.io/gh/zadzbw/koa2-cors
