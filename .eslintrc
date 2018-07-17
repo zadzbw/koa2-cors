@@ -33,6 +33,7 @@
       2,
       "always"
     ],
+    "no-return-await": 0,
     "import/extensions": 0,
     "import/no-unresolved": 0,
     "import/no-absolute-path": 0

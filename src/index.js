@@ -6,7 +6,8 @@
  *  - {Array} exposeHeaders `Access-Control-Expose-Headers`
  *  - {String|Number} maxAge `Access-Control-Max-Age` in seconds
  *  - {Boolean} credentials `Access-Control-Allow-Credentials`
- *  - {Array} allowMethods `Access-Control-Allow-Methods`, default is ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']
+ *  - {Array} allowMethods `Access-Control-Allow-Methods`,
+ *    default is ['GET', 'PUT', 'POST', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']
  *  - {Array} allowHeaders `Access-Control-Allow-Headers`
  * @return {Function}
  * @api public
@@ -17,13 +18,10 @@ module.exports = function crossOrigin(options = {}) {
   };
 
   // set defaultOptions to options
-  for (let key in defaultOptions) {
-    if (!Object.prototype.hasOwnProperty.call(options, key)) {
-      options[key] = defaultOptions[key];
-    }
-  }
+  options = Object.assign({}, defaultOptions, options); // eslint-disable-line no-param-reassign
 
-  return async function (ctx, next) {
+  // eslint-disable-next-line consistent-return
+  return async function cors(ctx, next) {
     let origin;
     if (typeof options.origin === 'function') {
       origin = options.origin(ctx);
