@@ -1,5 +1,10 @@
 # koa2-cors
 
+[![NPM version][npm-image]][npm-url]
+[![NPM download][npm-download-image]][npm-url]
+[![Node version][node-version-image]][npm-url]
+[![Build Status][travis-image]][travis-url]
+
 ## install
 
 > it requires node v7.6.0 or higher now
@@ -70,3 +75,11 @@ app.use(cors({
 ## License
 
 [MIT License](http://www.opensource.org/licenses/mit-license.php)
+
+[npm-image]: https://img.shields.io/npm/v/koa2-cors.svg
+[npm-download-image]: https://img.shields.io/npm/dm/koa2-cors.svg
+[node-version-image]: https://img.shields.io/node/v/koa2-cors.svg
+[npm-url]: https://www.npmjs.com/package/koa2-cors
+
+[travis-image]: https://api.travis-ci.org/zadzbw/koa2-cors.svg?branch=master
+[travis-url]: https://travis-ci.org/zadzbw/koa2-cors
