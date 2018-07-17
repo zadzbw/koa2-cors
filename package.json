@@ -11,7 +11,8 @@
     "test": "NODE_ENV=test mocha",
     "test:cover": "NODE_ENV=test istanbul cover _mocha",
     "build": "NODE_ENV=production rm -rf dist & babel src -d dist",
-    "lint": "eslint --ext .js src --format codeframe"
+    "lint": "eslint --ext .js src --format codeframe",
+    "ci": "npm run lint && npm run test:cover"
   },
   "repository": {
     "type": "git",
