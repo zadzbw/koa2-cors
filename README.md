@@ -1,9 +1,10 @@
 # koa2-cors
 
 [![NPM version][npm-image]][npm-url]
-[![NPM download][npm-download-image]][npm-url]
 [![Node version][node-version-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Code coverage][codecov-image]][codecov-url]
+[![NPM download][npm-download-image]][npm-url]
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## install
@@ -84,3 +85,6 @@ app.use(cors({
 
 [travis-image]: https://api.travis-ci.org/zadzbw/koa2-cors.svg?branch=master
 [travis-url]: https://travis-ci.org/zadzbw/koa2-cors
+
+[codecov-image]: https://codecov.io/gh/zadzbw/koa2-cors/branch/master/graph/badge.svg
+[codedov-url]: https://codecov.io/gh/zadzbw/koa2-cors
