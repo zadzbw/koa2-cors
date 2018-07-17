@@ -32,6 +32,7 @@
   "devDependencies": {
     "babel-cli": "^6.18.0",
     "chai": "^4.1.2",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^5.1.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
@@ -43,5 +44,10 @@
   },
   "engines": {
     "node": ">= 7.6.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }

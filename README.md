@@ -4,6 +4,7 @@
 [![NPM download][npm-download-image]][npm-url]
 [![Node version][node-version-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
+[![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ## install
 
