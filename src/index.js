@@ -22,6 +22,10 @@ module.exports = function crossOrigin(options = {}) {
 
   // eslint-disable-next-line consistent-return
   return async function cors(ctx, next) {
+    // always set vary Origin Header
+    // https://github.com/rs/cors/issues/10
+    ctx.vary('Origin');
+
     let origin;
     if (typeof options.origin === 'function') {
       origin = options.origin(ctx);

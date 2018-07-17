@@ -391,4 +391,58 @@ describe('koa2-cors test', () => {
     });
   });
 
+  describe('set `Vary: Origin` Header', () => {
+    it('should set Vary Header', (done) => {
+      const app = new Koa();
+      const router = new Router();
+      router.get('/test', (ctx) => {
+        ctx.status = 200;
+        ctx.body = { method: 'GET' };
+      });
+      app.use(cors({}));
+      app.use(router.routes()).use(router.allowedMethods());
+
+      request(app.listen())
+        .get('/test')
+        .set('Origin', 'http://koajs.com')
+        .expect({ method: 'GET' })
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect('Vary', 'Origin')
+        .expect(200, function (err, res) {
+          expect(err).to.be.null;
+          done(err);
+        });
+    });
+
+    it('should set Vary Header between other middleware', (done) => {
+      const app = new Koa();
+      const router = new Router();
+      router.get('/test', (ctx) => {
+        ctx.status = 200;
+        ctx.body = { method: 'GET' };
+      });
+      app.use(async (ctx, next) => {
+        ctx.vary('TEST1');
+        await next();
+      });
+      app.use(cors({}));
+      app.use(async (ctx, next) => {
+        ctx.vary('TEST2');
+        await next();
+      });
+      app.use(router.routes()).use(router.allowedMethods());
+
+      request(app.listen())
+        .get('/test')
+        .set('Origin', 'http://koajs.com')
+        .expect({ method: 'GET' })
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect('Vary', 'TEST1, Origin, TEST2')
+        .expect(200, function (err, res) {
+          expect(err).to.be.null;
+          done(err);
+        });
+    });
+  });
+
 });
