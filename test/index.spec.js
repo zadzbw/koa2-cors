@@ -109,7 +109,7 @@ describe('koa2-cors test', () => {
     }));
     app.use(router.routes()).use(router.allowedMethods());
 
-    it('should disabled cors when origin() is false', (done) => {
+    it('should disabled cors when origin() is falsy', (done) => {
       request(app.listen())
         .get('/test')
         .set('Origin', 'http://koajs.com')
@@ -173,7 +173,7 @@ describe('koa2-cors test', () => {
     }));
     app.use(router.routes()).use(router.allowedMethods());
 
-    it('should set `Access-Control-Max-Age`', (done) => {
+    it('should set `Access-Control-Max-Age` on Preflight Request', (done) => {
       request(app.listen())
         .options('/test')
         .set('Origin', 'http://koajs.com')
@@ -196,6 +196,196 @@ describe('koa2-cors test', () => {
         .expect(200, (err, res) => {
           expect(err).to.be.null;
           expect(res.headers).to.not.have.property('access-control-max-age');
+          done(err);
+        });
+    });
+  });
+
+  describe('options.credentials', () => {
+    const app = new Koa();
+    const router = new Router();
+    router.get('/test', (ctx) => {
+      ctx.status = 200;
+      ctx.body = { method: 'GET' };
+    });
+    app.use(cors({
+      credentials: true,
+    }));
+    app.use(router.routes()).use(router.allowedMethods());
+
+    it('should enable `Access-Control-Allow-Credentials` on Preflight Request', (done) => {
+      request(app.listen())
+        .options('/test')
+        .set('Origin', 'http://koajs.com')
+        .set('Access-Control-Request-Method', 'PUT')
+        .expect('')
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect('Access-Control-Allow-Credentials', 'true')
+        .expect(204, (err, res) => {
+          expect(err).to.be.null;
+          done(err);
+        });
+    });
+
+    it('should enable `Access-Control-Allow-Credentials` on simple request', (done) => {
+      request(app.listen())
+        .get('/test')
+        .set('Origin', 'http://koajs.com')
+        .expect({ method: 'GET' })
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect('Access-Control-Allow-Credentials', 'true')
+        .expect(200, (err, res) => {
+          expect(err).to.be.null;
+          done(err);
+        });
+    });
+
+    it('should disable `Access-Control-Allow-Credentials` on simple request when `origin` is set to `*`', (done) => {
+      request(app.listen())
+        .get('/test')
+        .expect({ method: 'GET' })
+        .expect('Access-Control-Allow-Origin', '*')
+        .expect(200, (err, res) => {
+          expect(err).to.be.null;
+          expect(res.headers).to.not.have.property('access-control-allow-credentials');
+          done(err);
+        });
+    });
+  });
+
+  describe('options.allowMethods', () => {
+    it('should set `Access-Control-Allow-Methods` correctly', (done) => {
+      const app = new Koa();
+      const router = new Router();
+      router.get('/test', (ctx) => {
+        ctx.status = 200;
+        ctx.body = { method: 'GET' };
+      });
+      app.use(cors({
+        allowMethods: ['GET', 'POST', 'PUT'],
+      }));
+      app.use(router.routes()).use(router.allowedMethods());
+
+      request(app.listen())
+        .options('/test')
+        .set('Origin', 'http://koajs.com')
+        .set('Access-Control-Request-Method', 'PUT')
+        .expect('')
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect('Access-Control-Allow-Methods', 'GET,POST,PUT')
+        .expect(204, (err, res) => {
+          expect(err).to.be.null;
+          done(err);
+        });
+    });
+
+    it('should not set `Access-Control-Allow-Methods` when allowMethods is falsy', (done) => {
+      const app = new Koa();
+      const router = new Router();
+      router.get('/test', (ctx) => {
+        ctx.status = 200;
+        ctx.body = { method: 'GET' };
+      });
+      app.use(cors({
+        allowMethods: null,
+      }));
+      app.use(router.routes()).use(router.allowedMethods());
+
+      request(app.listen())
+        .options('/test')
+        .set('Origin', 'http://koajs.com')
+        .set('Access-Control-Request-Method', 'PUT')
+        .expect('')
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect(204, (err, res) => {
+          expect(err).to.be.null;
+          expect(res.headers).to.not.have.property('access-control-allow-methods');
+          done(err);
+        });
+    });
+  });
+
+  describe('options.allowHeaders', () => {
+    it('should set `Access-Control-Allow-Headers` correctly', (done) => {
+      const app = new Koa();
+      const router = new Router();
+      router.get('/test', (ctx) => {
+        ctx.status = 200;
+        ctx.body = { method: 'GET' };
+      });
+      app.use(cors({
+        allowHeaders: ['TEST1', 'TEST2'],
+      }));
+      app.use(router.routes()).use(router.allowedMethods());
+
+      request(app.listen())
+        .options('/test')
+        .set('Origin', 'http://koajs.com')
+        .set('Access-Control-Request-Method', 'PUT')
+        .expect('')
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect('Access-Control-Allow-Headers', 'TEST1,TEST2')
+        .expect(204, (err, res) => {
+          expect(err).to.be.null;
+          done(err);
+        });
+    });
+
+    it('should set `Access-Control-Allow-Headers` based on request `Access-Control-Request-Headers` header', (done) => {
+      const app = new Koa();
+      const router = new Router();
+      router.get('/test', (ctx) => {
+        ctx.status = 200;
+        ctx.body = { method: 'GET' };
+      });
+      app.use(cors({}));
+      app.use(router.routes()).use(router.allowedMethods());
+
+      request(app.listen())
+        .options('/test')
+        .set('Origin', 'http://koajs.com')
+        .set('Access-Control-Request-Method', 'PUT')
+        .set('Access-Control-Request-Headers', 'TEST1')
+        .expect('')
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect('Access-Control-Allow-Headers', 'TEST1')
+        .expect(204, (err, res) => {
+          expect(err).to.be.null;
+          done(err);
+        });
+    });
+  });
+
+  describe('handle error', () => {
+    const app = new Koa();
+    const router = new Router();
+    router.get('/test', (ctx) => {
+      ctx.body = { method: 'GET' };
+      throw new Error('Oops!');
+    });
+    app.use(cors({}));
+    app.use(router.routes()).use(router.allowedMethods());
+
+    it('should handle error on simple request', (done) => {
+      request(app.listen())
+        .get('/test')
+        .set('Origin', 'http://koajs.com')
+        .expect('Internal Server Error')
+        .expect(500, function (err, res) {
+          expect(res.headers).to.not.have.property('access-control-allow-origin');
+          done(err);
+        });
+    });
+
+    it('should not handle error on Preflight Request', (done) => {
+      request(app.listen())
+        .options('/test')
+        .set('Origin', 'http://koajs.com')
+        .set('Access-Control-Request-Method', 'PUT')
+        .expect('')
+        .expect('Access-Control-Allow-Origin', 'http://koajs.com')
+        .expect(204, function (err, res) {
+          expect(err).to.be.null;
           done(err);
         });
     });
